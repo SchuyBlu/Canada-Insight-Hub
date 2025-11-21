@@ -1,0 +1,15 @@
+# Core framework
+django==5.2.5
+djangorestframework==3.16.1
+django-cors-headers==4.7.0
+
+# ETL / Data Cleaning
+pandas==2.2.3
+
+# Database loading
+psycopg2==2.9.11
+SQLAlchemy==2.0.36
+
+# Fine-tuning and model handling
+numpy==1.26.4
+sqlglot==27.29.0

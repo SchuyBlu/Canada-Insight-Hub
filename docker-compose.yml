@@ -1,0 +1,40 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - hub_db:/var/lib/postgresql/data
+
+  django:
+    user: ${UID}:${GID}
+    container_name: django
+    build:
+      context: .
+      dockerfile: docker/django.Dockerfile
+    command: ["sh", "scripts/django_init.sh"]
+    working_dir: /code
+    environment:
+      - UID=${UID}
+      - GID=${GID}
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    depends_on:
+      postgres:
+        condition: service_started
+
+volumes:
+  hub_db:
