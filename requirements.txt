@@ -4,12 +4,15 @@ djangorestframework==3.16.1
 django-cors-headers==4.7.0
 
 # ETL / Data Cleaning
-pandas==2.2.3
+pandas==3.0.6
 
 # Database loading
-psycopg2==2.9.11
+psycopg2==2.9.13
 SQLAlchemy==2.0.36
 
 # Fine-tuning and model handling
 numpy==1.26.4
 sqlglot==27.29.0
+
+# Documentation
+jupyterlab==4.6.4

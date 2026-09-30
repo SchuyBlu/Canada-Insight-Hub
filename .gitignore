@@ -1,9 +1,13 @@
 # Environment configuration
 .env
+.venv/
 
 # Python bytecode / cache
 __pycache__/
 *.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
 
 # Logs
 *.log
