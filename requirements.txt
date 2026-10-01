@@ -16,3 +16,5 @@ sqlglot==27.29.0
 
 # Documentation
 jupyterlab==4.6.4
+jupyterlab-lsp
+python-lsp-server[all]
