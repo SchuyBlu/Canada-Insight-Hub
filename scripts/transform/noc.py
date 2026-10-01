@@ -45,10 +45,18 @@ ROOT = find_root()
 #
 # ```mermaid
 # erDiagram
+#     NocDim }o--|| NocGroups : ""
+#
+#
 #     NocGroups {
 #         int nocgroup_id PK
 #         string name
 #     }
+#     NocDim {
+#         int level
+#         int nocgroup_id FK
+#     }
+#     
 # ```
 
 # %%
@@ -60,12 +68,17 @@ class Noc:
     def __init__(self, file: str):
         self.level_ot: set[int] = set()
         self._raw_data = pd.read_csv(file)
+        self._levels = self._parse_levels()
 
-    def __parse_file(self, file):
+    def _parse_levels(self):
         """Parses the file """
-        df = pd.read_csv(file)
-    
-        return df
+        levels = pd.DataFrame(
+            {
+                "Groups": self._raw_data["Hierarchical structure"].unique()
+            }
+        )
+
+        return levels
 
 # %% [markdown]
 # We want to see headers and then we can dive into data in different columns.
@@ -74,7 +87,20 @@ class Noc:
 # noc = Noc(ROOT / "data" / "noc_2021_version_1.0_-_classification_structure.csv")
 
 # %% active="ipynb"
-# noc._raw_data.columns
+# pd.DataFrame(
+#     {
+#         "Headers": noc._raw_data.columns
+#     }
+# )
 
 # %% [markdown]
-# So to 
+# Break it down column by column. Starting with level:
+
+# %% active="ipynb"
+# pd.DataFrame(
+#     {
+#         "Groups": noc._raw_data["Hierarchical structure"].unique()
+#     }
+# )
+
+# %%
